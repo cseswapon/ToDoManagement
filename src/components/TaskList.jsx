@@ -1,46 +1,76 @@
+import { Table } from "react-bootstrap";
+
 // eslint-disable-next-line react/prop-types
 const TaskList = ({ tasks, deleteTask, toggleComplete, editTask }) => {
+  const priorityClasses = {
+    low: "text-primary fw-bold",
+    medium: "text-warning fw-bold",
+    high: "text-danger fw-bold",
+  };
   return (
-    <ul className="list-group">
+    <>
       {/* eslint-disable-next-line react/prop-types */}
-      {tasks?.map((task) => (
-        <li
-          key={task.id}
-          className={`list-group-item ${
-            task.completed ? "list-group-item-success" : ""
-          }`}
-        >
-          <div className="d-flex justify-content-between align-items-center">
-            <div>
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => toggleComplete(task.id)}
-              />
-              <span className="ml-2">{task.text}</span>
-            </div>
-            <div>
-              <button
-                className="btn btn-sm btn-danger mr-2"
-                onClick={() => deleteTask(task.id)}
+      {tasks.length > 0 && (
+        // eslint-disable-next-line react/prop-types
+        <h1 className="my-3 text-center">Total Task {tasks.length}</h1>
+      )}
+      <Table className="text-center" striped="columns">
+        <thead>
+          <tr>
+            <th>CheckBox</th>
+            <th>Serial Number</th>
+            <th>Details</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* eslint-disable-next-line react/prop-types */}
+          {tasks?.map((task, i) => (
+            <tr key={i}>
+              <td>
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => toggleComplete(task.id)}
+                />
+              </td>
+              <td>{i + 1}</td>
+              <td>{task.text}</td>
+              <td
+                className={`badge text-white mt-2 ${
+                  task.completed ? "bg-success" : "bg-warning"
+                }`}
               >
-                Delete
-              </button>
-              <button
-                className="btn btn-sm btn-primary"
-                onClick={() =>
-                  editTask(task.id, {
-                    text: prompt("Edit task:", task.text) || task.text,
-                  })
-                }
-              >
-                Edit
-              </button>
-            </div>
-          </div>
-        </li>
-      ))}
-    </ul>
+                {task.completed ? "Complete" : "Pending"}
+              </td>
+              <td className={priorityClasses[task.priority]}>
+                {task.priority}
+              </td>
+              <td>
+                <button
+                  className="btn btn-sm btn-danger mx-2"
+                  onClick={() => deleteTask(task.id)}
+                >
+                  Delete
+                </button>
+                <button
+                  className="btn btn-sm btn-primary"
+                  onClick={() =>
+                    editTask(task.id, {
+                      text: prompt("Edit task:", task.text) || task.text,
+                    })
+                  }
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </>
   );
 };
 
