@@ -55,7 +55,8 @@ const TaskList = ({
         </div>
       )}
       <hr className="my-4" />
-      <Table className="text-center" striped="columns">
+      {/* eslint-disable-next-line react/prop-types */}
+      {tasks.length > 0 && <Table className="text-center" striped="columns">
         <thead>
           <tr>
             <th>CheckBox</th>
@@ -80,9 +81,8 @@ const TaskList = ({
               <td>{i + 1}</td>
               <td>{task.text}</td>
               <td
-                className={`badge text-white mt-2 ${
-                  task.completed ? "bg-success" : "bg-warning"
-                }`}
+                className={`badge text-white mt-2 ${task.completed ? "bg-success" : "bg-warning"
+                  }`}
               >
                 {task.completed ? "Complete" : "Pending"}
               </td>
@@ -110,7 +110,7 @@ const TaskList = ({
             </tr>
           ))}
         </tbody>
-      </Table>
+      </Table>}
     </>
   );
 };
