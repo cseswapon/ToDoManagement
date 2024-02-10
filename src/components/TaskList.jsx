@@ -1,7 +1,17 @@
 import { Table } from "react-bootstrap";
 
-// eslint-disable-next-line react/prop-types
-const TaskList = ({ tasks, deleteTask, toggleComplete, editTask }) => {
+const TaskList = ({
+  // eslint-disable-next-line react/prop-types
+  tasks,
+  // eslint-disable-next-line react/prop-types
+  deleteTask,
+  // eslint-disable-next-line react/prop-types
+  toggleComplete,
+  // eslint-disable-next-line react/prop-types
+  editTask,
+  // eslint-disable-next-line react/prop-types
+  filterTasks,
+}) => {
   const priorityClasses = {
     low: "text-primary fw-bold",
     medium: "text-warning fw-bold",
@@ -11,9 +21,40 @@ const TaskList = ({ tasks, deleteTask, toggleComplete, editTask }) => {
     <>
       {/* eslint-disable-next-line react/prop-types */}
       {tasks.length > 0 && (
-        // eslint-disable-next-line react/prop-types
-        <h1 className="my-3 text-center">Total Task {tasks.length}</h1>
+        <div className="d-flex justify-content-between my-4">
+          <div>
+            {/* eslint-disable-next-line react/prop-types */}
+            <h4>Total Task {tasks.length}</h4>
+          </div>
+          <div>
+            <button
+              className="btn btn-sm btn-primary me-2"
+              onClick={() => filterTasks("low")}
+            >
+              Low Priority
+            </button>
+            <button
+              className="btn btn-sm btn-warning me-2"
+              onClick={() => filterTasks("medium")}
+            >
+              Medium Priority
+            </button>
+            <button
+              className="btn btn-sm btn-danger me-2"
+              onClick={() => filterTasks("high")}
+            >
+              High Priority
+            </button>
+            <button
+              className="btn btn-sm btn-success"
+              onClick={() => filterTasks(null)}
+            >
+              Show All Task
+            </button>
+          </div>
+        </div>
       )}
+      <hr className="my-4" />
       <Table className="text-center" striped="columns">
         <thead>
           <tr>

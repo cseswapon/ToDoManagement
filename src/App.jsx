@@ -13,6 +13,14 @@ const App = () => {
     }
   });
 
+  const [filteredTasks, setFilteredTasks] = useState([]);
+
+  // Filter tasks based on priority
+  const filterTasks = (priority) => {
+    setFilteredTasks(tasks.filter((task) => task.priority === priority));
+  };
+
+
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -41,13 +49,14 @@ const App = () => {
 
   return (
     <div className="container mt-4">
-      <h1 className="text-center mb-4">Todo List</h1>
-      <TaskForm addTask={addTask} />
+      <h1 className="text-center mb-4">Todo List</h1><hr />
+      <TaskForm addTask={addTask} /><hr />
       <TaskList
-        tasks={tasks}
+        tasks={filteredTasks.length > 0 ? filteredTasks : tasks}
         deleteTask={deleteTask}
         toggleComplete={toggleComplete}
         editTask={editTask}
+        filterTasks={filterTasks}
       />
     </div>
   );

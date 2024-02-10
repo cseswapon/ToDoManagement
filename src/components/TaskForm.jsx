@@ -30,7 +30,7 @@ const TaskForm = ({ addTask }) => {
           onChange={handleChange}
         />
       </div>
-      <div className="form-group">
+      <div className="form-group my-3">
         <select
           className="form-control"
           name="priority"
